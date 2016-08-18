@@ -259,7 +259,44 @@ do ->
         editorStates.preview.closeDevTools()
       else
         editorStates.preview.openDevTools()
-   
+      
+    .on 'customCommand', (command) ->
+      cm = editorStates.codeMirror
+
+      spec =
+        bold:
+          rx: /^\*\*([^]*)\*\*$/
+          use: (x) -> "**#{txt}**" 
+          gap:
+            multiline: 2
+            singleline: 4 
+        highlight: 
+          rx: /^==\*\*([^]*)\*\*==$/
+          use: (x) -> "==**#{txt}**=="
+          gap:
+            multiline: 4
+            singleline: 8 
+        italic: 
+          rx: /^_([^]*)_$/
+          use: (x) -> "_#{txt}_"
+          gap:
+            multiline: 1
+            singleline: 2
+
+      opt = spec[command]
+      txt = cm.getSelection()
+      start = cm.listSelections()[0]
+      gap = (if start.anchor.line is start.head.line then opt.gap.singleline else opt.gap.multiline)
+      
+      unless opt.rx.test txt
+        cm.replaceSelection opt.use txt
+        start.head.ch += gap # TODO: support inverse selection
+      else
+        cm.replaceSelection txt.replace(opt.rx,(_, x) -> x)
+        start.head.ch -= gap # TODO: support inverse selection
+      
+      try cm.setSelections [start]
+
     .on 'toggleEditor', ->
       $('.pane.markdown').toggle()
 

@@ -137,6 +137,25 @@ module.exports = class MdsMainMenu
               accelerator: 'CmdOrCtrl+A'
               click: => @window.mdsWindow.send 'editCommand', 'selectAll' unless @window.mdsWindow.freeze
             }
+            { type: 'separator' }
+            { 
+              label: '&Bold' 
+              accelerator: 'CmdOrCtrl+B'
+              role: 'bold'
+              click: => @window.mdsWindow.send 'customCommand', 'bold' unless @window.mdsWindow.freeze
+            }
+            { 
+              label: '&Highlight' 
+              accelerator: 'Shift+CmdOrCtrl+B'
+              role: 'highlight'
+              click: => @window.mdsWindow.send 'customCommand', 'highlight' unless @window.mdsWindow.freeze
+            }
+            { 
+              label: '&Italic' 
+              accelerator: 'CmdOrCtrl+I'
+              role: 'italic'
+              click: => @window.mdsWindow.send 'customCommand', 'italic' unless @window.mdsWindow.freeze
+            }
           ]
         }
         {
