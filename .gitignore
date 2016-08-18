@@ -44,3 +44,7 @@ css/
 dist/
 packages/
 releases/
+
+# IDE
+.idea
+.vscode
