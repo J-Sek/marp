@@ -167,6 +167,11 @@ $highlight-color: #0288d1
 
     &[data-template~="invert"]
       +color-template($text-color, $bg-color, #4fc3f7)
+    
+    &[data-template~="toc"]
+      font-size: calc(0.025px * var(--slide-height))
+      a
+        text-decoration: none
 
     &[data-template~="gaia"]
       +color-template($highlight-color, $bg-color, #81d4fa)
