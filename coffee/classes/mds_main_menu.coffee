@@ -152,6 +152,11 @@ module.exports = class MdsMainMenu
               enabled: @window?
               submenu: [{ replacement: 'themes' }]
             }
+            {
+              label: '&Editor Theme'
+              enabled: @window?
+              submenu: [{ replacement: 'editorThemes' }]
+            }
             { type: 'separator' }
             {
               label: 'Toggle &Full Screen'
@@ -248,6 +253,44 @@ module.exports = class MdsMainMenu
               type: if @window? then 'radio' else 'normal'
               checked: @states.viewMode == 'list'
               click: => @window.mdsWindow.trigger 'viewMode', 'list'
+            }
+          ]
+          
+          editorThemes: [
+            {
+              label: '&Default'
+              enabled: @window?
+              type: if @window? then 'radio' else 'normal'
+              checked: @states.editorTheme == 'marp'
+              click: => @window.mdsWindow.send 'setEditorTheme', null
+            }
+            {
+              label: '&Material'
+              enabled: @window?
+              type: if @window? then 'radio' else 'normal'
+              checked: !@states?.editorTheme || @states.editorTheme == 'material'
+              click: => @window.mdsWindow.send 'setEditorTheme', 'material'
+            }
+            {
+              label: 'Mono&kai'
+              enabled: @window?
+              type: if @window? then 'radio' else 'normal'
+              checked: @states.editorTheme == 'monokai'
+              click: => @window.mdsWindow.send 'setEditorTheme', 'monokai'
+            }
+            {
+              label: 'Solarized-&Dark'
+              enabled: @window?
+              type: if @window? then 'radio' else 'normal'
+              checked: @states.editorTheme == 'solarized dark'
+              click: => @window.mdsWindow.send 'setEditorTheme', 'solarized dark'
+            }
+            {
+              label: 'Solarized-&Light'
+              enabled: @window?
+              type: if @window? then 'radio' else 'normal'
+              checked: @states.editorTheme == 'solarized light'
+              click: => @window.mdsWindow.send 'setEditorTheme', 'solarized light'
             }
           ]
 

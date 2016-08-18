@@ -38,6 +38,8 @@ class EditorStates
       { label: 'Services', role: 'services', submenu: [], platform: 'darwin' }
     ]
 
+  setEditorTheme: (theme) => @codeMirror.setOption "theme", (theme or 'marp')
+  
   refreshPage: (rulers) =>
     @rulers = rulers if rulers?
     page    = 1
@@ -135,7 +137,7 @@ do ->
   editorStates = new EditorStates(
     CodeMirror.fromTextArea($('#editor')[0],
       mode: 'gfm'
-      theme: 'marp'
+      theme: 'material'
       lineWrapping: true
       lineNumbers: false
       dragDrop: false
@@ -260,6 +262,7 @@ do ->
 
     .on 'setSplitter', (spliiterPos) -> setSplitter spliiterPos
     .on 'setTheme', (theme) -> editorStates.updateGlobalSetting '$theme', theme
+    .on 'setEditorTheme', (theme) -> editorStates.setEditorTheme theme
     .on 'themeChanged', (theme) -> MdsRenderer.sendToMain 'themeChanged', theme
     .on 'resourceState', (state) -> loadingState = state
 
