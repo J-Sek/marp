@@ -259,6 +259,14 @@ do ->
         editorStates.preview.closeDevTools()
       else
         editorStates.preview.openDevTools()
+   
+    .on 'toggleEditor', ->
+      $('.pane.markdown').toggle()
+
+    .on 'slideNavigation', (step) ->
+      es = editorStates
+      es.currentPage = Math.max(1,Math.min(es.currentPage + step, es.rulers.length + 1))
+      es.preview.send 'currentPage', es.currentPage if es.previewInitialized
 
     .on 'setSplitter', (spliiterPos) -> setSplitter spliiterPos
     .on 'setTheme', (theme) -> editorStates.updateGlobalSetting '$theme', theme

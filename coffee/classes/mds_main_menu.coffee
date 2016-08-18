@@ -159,6 +159,25 @@ module.exports = class MdsMainMenu
             }
             { type: 'separator' }
             {
+              label: 'Preview: Page &Up'
+              accelerator: 'Ctrl+pageup'
+              role: 'pgUp'
+              click: => @window.mdsWindow.send 'slideNavigation', -1
+            }
+            {
+              label: 'Preview: Page &Down'
+              accelerator: 'Ctrl+pagedown'
+              role: 'pgDown'
+              click: => @window.mdsWindow.send 'slideNavigation', +1
+            }
+            { type: 'separator' }
+            {
+              label: 'Toggle &Editor'
+              accelerator: 'Ctrl+F11'
+              role: 'toggleEditor'
+              click: => @window.mdsWindow.send 'toggleEditor'
+            }
+            {
               label: 'Toggle &Full Screen'
               accelerator: do -> if process.platform == 'darwin' then 'Ctrl+Command+F' else 'F11'
               role: 'togglefullscreen'
